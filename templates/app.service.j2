@@ -1,15 +1,18 @@
 {#
-TODO: reuse your unit from Lab 1
-TODO: Path to jar should use variables {{ app_dir }}/{{ app_file }}
-TODO: Environment variable for PORT should use value from variable {{ app_port }}
+Використовую unit зі своєї першої лабораторної роботи
+Але на відміну від першої, на цей раз додав Requires
 #}
 [Unit]
-Description=
-Requires=
-After=
+Description=SampleSpringServer
+Requires=network.target
+After=network.target
 
 [Install]
 WantedBy=multi-user.target
 
 [Service]
-ExecStart=
+ExecStart=/usr/bin/java -jar {{ app_dir }}/{{ app_file }}
+Environment=PORT={{ app_port }}
+Restart=always
+RestartSec=10
+User={{ ansible_user_id }}
